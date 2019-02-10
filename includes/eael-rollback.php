@@ -21,13 +21,6 @@ if( ! class_exists('EAEL_Rollback') ) {
         private static $instance;
 
         /**
-         * Plugin repo url.
-         * 
-         * @var string
-         */
-        public $plugins_repo = 'http://plugins.svn.wordpress.org';
-
-        /**
 		 * Plugin file.
 		 *
 		 * @var string
@@ -47,6 +40,10 @@ if( ! class_exists('EAEL_Rollback') ) {
 		 * @var array
 		 */
 		public $versions = [
+            '2.9.2',
+            '2.9.1',
+            '2.9.0',
+            '2.8.7',
             '2.8.6',
             '2.8.5',
             '2.8.4',
@@ -112,13 +109,14 @@ if( ! class_exists('EAEL_Rollback') ) {
 
                 // Only setup plugin rollback on specific page.
                 self::$instance->setup_plugin_vars();
-                self::$instance->get_plugin_data();
+                // self::$instance->get_plugin_data();
             }
             return self::$instance;
         }
 
         public function __construct() {
             add_filter( 'insert_eael_versions_html', [$this, 'versions_select'] );
+            $this->get_plugin_data();
         }
 
         /**
@@ -127,8 +125,6 @@ if( ! class_exists('EAEL_Rollback') ) {
          * @access private
          */
         private function setup_plugin_vars() {
-            $svn_tags = $this->get_svn_tags();
-            $this->set_svn_versions_data($svn_tags);
             $this->versions_select('plugin');
         }
 
@@ -151,6 +147,7 @@ if( ! class_exists('EAEL_Rollback') ) {
         }
 
         /**
+<<<<<<< HEAD
          * Get Subversion Tags
          * 
          * cURL wp.org repo to get the proper tags
@@ -200,6 +197,8 @@ if( ! class_exists('EAEL_Rollback') ) {
         }
 
         /**
+=======
+>>>>>>> 74b01c46eb09b57d07e65c29bb53e53e8a29f9d6
          * Versions Select
          * 
          * Outputs the version radio buttons to select a rollback;
@@ -217,7 +216,7 @@ if( ! class_exists('EAEL_Rollback') ) {
 
                 // Loop through versions and output in a radio list
                 foreach( $this->versions as $v ) {
-                    
+
                     // Is this the current version?
                     if( $v == $this->current_version ) {
                         $vh .= '<option value"'. esc_attr($v).'" disabled>'.$v;
@@ -231,16 +230,6 @@ if( ! class_exists('EAEL_Rollback') ) {
             $vh .= '</select>';
 
             return $vh;
-        }
-
-
-        /**
-         * Plugin Action Link
-         * 
-         * Adds a rollback button into the eael version control tab with appropriate query strings.
-         */
-        public function eael_plugin_upgrade_confirmation() {
-            
         }
 
 
