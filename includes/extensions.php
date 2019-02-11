@@ -2,45 +2,46 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-abstract class Module_Base {
+if( ! class_exists('EA_Extensions') ) {
+    class EA_Extensions {
 
     /**
-     * @var	\RefelectionClass
-     */
-    private $reflection;
+      * Instance of this class
+      * 
+      * @access protected
+      */
+      protected static $_instance = null;
 
-    /**
-     * @var Module_Base
-     */
-    protected static $_instance = [];
+      /**
+       * Get instinstancance of this class
+       * 
+       * @return Essential_Addons
+       */
+        public static function get_instance() {
+            if ( is_null( self::$_instance ) ) {
+                self::$_instance = new self();
+            }
 
-    /**
-     * Class active status
-     */
-    public static function is_active() {
-        return true;
-    }
-
-    /**
-     * Retrive class name
-     */
-    public static function class_name() {
-        return get_called_class();
-    }
-
-    /**
-     * @return static
-     */
-    public static function instance() {
-        if( empty(static::$_instance[ static::class_name() ]) ) {
-            static::$_instance[ static::class_name() ] = new static();
+            return self::$_instance;
         }
 
-        return static::$_instance[ static::class_name() ];
-    }
+        public function __construct() {
+            $this->add_eael_extensions();
+        }
 
-    public function __construct() {
-        $this->reflection = new \ReflectionClass( $this );
-    }
 
+        /**
+         * Load acivate or deactivate Modules
+         *
+         * @since v1.0.0
+         */
+        function add_eael_extensions() {
+            $is_component_active = Essential_Addons::eael_activated_modules();
+
+            if( $is_component_active['section-particles'] ) {
+                require_once ESSENTIAL_ADDONS_EL_PATH .'extensions/eael-particle-section/eael-particle-section.php';
+            }
+        }
+
+    }
 }
