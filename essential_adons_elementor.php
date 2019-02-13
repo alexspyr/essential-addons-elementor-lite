@@ -58,6 +58,8 @@ if( ! class_exists('Essential_Addons') ) {
          $this->instantiate();
          $this->essential_addons_elementor_lite_start_plugin_tracking();
 
+         add_action( 'admin_init', array($this, 'ea_admin_notices'));
+
          add_action('admin_init', array($this, 'eael_redirect'));
          add_action( 'elementor/controls/controls_registered', array($this, 'eae_posts_register_control'));
 
@@ -170,12 +172,24 @@ if( ! class_exists('Essential_Addons') ) {
          require_once $this->include_path('extensions.php');
          require_once $this->include_path('class-ea-elements.php');
          require_once $this->include_path('class-plugin-check.php');
-         // require_once dirname( __FILE__ ) . '/includes/class-wpdev-notices.php';
+      }
+
+      public function ea_admin_notices() {
+         require_once dirname( __FILE__ ) . '/includes/class-wpdev-notices.php';
       }
 
       public function instantiate() {
          $this->ea_extensions = EA_Extensions::get_instance();
          $this->ea_elements   = EA_Elements::get_instance();
+      }
+
+      /**
+       * Activation redirects
+       *
+       * @since v1.0.0
+       */
+      public static function eael_activate() {
+         add_option('eael_do_activation_redirect', true);
       }
 
       /**
@@ -278,17 +292,6 @@ function run_essential_addons() {
 }
 add_action( 'plugins_loaded', 'run_essential_addons', 25 );
 
-
-
-/**
- * Activation redirects
- *
- * @since v1.0.0
- */
-function eael_activate() {
-   add_option('eael_do_activation_redirect', true);
-}
-register_activation_hook(__FILE__, 'eael_activate');
-
+register_activation_hook(__FILE__, 'Essential_Addons::eael_activate');
 
 

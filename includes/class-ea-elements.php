@@ -171,7 +171,7 @@ if( ! class_exists('EA_Elements') ) {
                 ]
             ];
 
-            $elements = apply_filters( 'eael_elements', $elements );
+            $elements = apply_filters( 'eael_add_elements', $elements );
 
             foreach( $elements as $element ) {
                 
