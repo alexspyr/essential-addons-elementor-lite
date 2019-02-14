@@ -58,8 +58,6 @@ if( ! class_exists('Essential_Addons') ) {
          $this->instantiate();
          $this->essential_addons_elementor_lite_start_plugin_tracking();
 
-         add_action( 'admin_init', array($this, 'ea_admin_notices'));
-
          add_action('admin_init', array($this, 'eael_redirect'));
          add_action( 'elementor/controls/controls_registered', array($this, 'eae_posts_register_control'));
 
@@ -172,9 +170,6 @@ if( ! class_exists('Essential_Addons') ) {
          require_once $this->include_path('extensions.php');
          require_once $this->include_path('class-ea-elements.php');
          require_once $this->include_path('class-plugin-check.php');
-      }
-
-      public function ea_admin_notices() {
          require_once dirname( __FILE__ ) . '/includes/class-wpdev-notices.php';
       }
 
