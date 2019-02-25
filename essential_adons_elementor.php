@@ -166,16 +166,22 @@ if( ! class_exists('Essential_Addons') ) {
          require_once $this->include_path('maintennance.php');
          require_once $this->include_path('eael-rollback.php');
          require_once ESSENTIAL_ADDONS_EL_PATH.'admin/settings.php';
-         require_once $this->include_path('module-base.php');
-         require_once $this->include_path('extensions.php');
          require_once $this->include_path('class-ea-elements.php');
          require_once $this->include_path('class-plugin-check.php');
          require_once dirname( __FILE__ ) . '/includes/class-wpdev-notices.php';
       }
 
       public function instantiate() {
-         $this->ea_extensions = EA_Extensions::get_instance();
          $this->ea_elements   = EA_Elements::get_instance();
+         $this->extensions();
+      }
+
+      public function extensions() {
+         $is_component_active = Essential_Addons::eael_activated_modules();
+
+         if($is_component_active['section-particles']) {
+            require_once ESSENTIAL_ADDONS_EL_PATH .'extensions/eael-particle-section/eael-particle-section.php';
+         }
       }
 
       /**
