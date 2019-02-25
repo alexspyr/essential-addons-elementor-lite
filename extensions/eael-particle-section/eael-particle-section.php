@@ -123,19 +123,6 @@ function before_render( $element ) {
             ) {
             $element->add_render_attribute('_wrapper', 'data-theme', $settings['eael_particles_custom_style']);
         }
-        if('section' == $element->get_type()) {
-            ?>
-            <style>
-                .elementor-element-<?php echo $element->get_id(); ?>.eael-particles-section > canvas{
-                    position: absolute;
-                    top:0;
-                }
-                .elementor-section .elementor-container {
-                    z-index: 99;
-                }
-            </style>
-        <?php
-        }
 
     }
     
