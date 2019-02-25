@@ -2,16 +2,6 @@
     <div class="row">
         <div class="col-full">
             <!-- Content Element Starts -->
-            <h3>Available Extensions</h3>
-            <div class="eael-checkbox-container">
-
-                <div class="eael-checkbox">
-                    <input type="checkbox" id="section-particles" name="section-particles" <?php checked( 1, $this->eael_get_settings['section-particles'], true ); ?> >
-                    <label for="section-particles"></label>
-                    <p class="eael-el-title"><?php _e( 'Section Particles Effect', 'essential-addons-elementor' ) ?></p>
-                </div>
-
-            </div>
             <h3>Premium Extensions</h3>
             <div class="eael-checkbox-container">
 

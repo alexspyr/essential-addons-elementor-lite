@@ -28,7 +28,6 @@ require_once ESSENTIAL_ADDONS_EL_PATH.'includes/version-rollback.php';
 require_once ESSENTIAL_ADDONS_EL_PATH.'includes/maintennance.php';
 require_once ESSENTIAL_ADDONS_EL_PATH.'includes/eael-rollback.php';
 require_once ESSENTIAL_ADDONS_EL_PATH.'admin/settings.php';
-require_once ESSENTIAL_ADDONS_EL_PATH.'includes/extensions.php';
 
 /**
  * This function will return true for all activated modules
@@ -51,20 +50,6 @@ function eael_activated_modules() {
    return $eael_get_settings = get_option( 'eael_save_settings', $eael_default_settings );
 
 }
-
-/**
- * Load acivate or deactivate Modules
- *
- * @since v1.0.0
- */
-function add_eael_extensions() {
-	$is_component_active = eael_activated_modules();
-
-	if( $is_component_active['section-particles'] ) {
-		require_once ESSENTIAL_ADDONS_EL_PATH .'extensions/eael-particle-section/eael-particle-section.php';
-	}
-}
-add_eael_extensions();
 
 /**
  * Acivate or Deactivate Modules
@@ -252,9 +237,6 @@ function essential_addons_el_enqueue(){
          'particles-js', ESSENTIAL_ADDONS_EL_URL.'assets/js/particles.js',
          ['jquery'], '1.0', true
       );
-
-		$preset_themes = require ESSENTIAL_ADDONS_EL_PATH.'extensions/eael-particle-section/particle-themes.php';
-		wp_localize_script( 'particles-js', 'ParticleThemesData', $preset_themes );
 	}
 
 }
